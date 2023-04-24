@@ -9,3 +9,12 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 from models import User, Project, Task
+
+class Users(Resource):
+    def get(self):
+        return "Does this work?"
+    
+api.add_resource(Users, '/users')
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True)
