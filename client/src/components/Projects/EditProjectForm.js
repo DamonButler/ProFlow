@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function EditProjectForm({ project, onClose }) {
+function EditProjectForm({ project, onClose, handleUpdateProject }) {
     const [formData, setFormData] = useState({
       name: project.name,
       description: project.description,
@@ -18,21 +18,22 @@ function EditProjectForm({ project, onClose }) {
     };
   
     const handleSubmit = (event) => {
-      event.preventDefault();
-  
-      fetch(`/projects/${project.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          onClose();
+        event.preventDefault();
+    
+        fetch(`/projects/${project.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
         })
-        .catch(error => console.log(error));
-    };
+          .then(response => response.json())
+          .then(data => {
+            handleUpdateProject(data); // Pass updated project data to callback
+            onClose();
+          })
+          .catch(error => console.log(error));
+      };
   
     return (
       <div className="project-form-container">
@@ -76,4 +77,4 @@ function EditProjectForm({ project, onClose }) {
   }
   
 
-export default EditProjectForm
+export default EditProjectForm;

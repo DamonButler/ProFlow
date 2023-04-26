@@ -48,7 +48,7 @@ with app.app_context():
 
     print("Creating Tasks...")
 
-    tasks = [Task( name= faker.name(), description = faker.word(),  start_date= faker.word(), end_date = faker.word(), status = faker.word(), project_id = "1") for _ in range(1,5)]
+    tasks = [Task( name= faker.name(), description = faker.word(),  start_date= faker.word(), end_date = faker.word(), status = faker.word(), project_id = 1) for _ in range(1,5)]
 
     # t1 = Task(name = 'Chaos Central', description = "102 Whilwind Ave, Chicago, IL, 20039", start_date = '4', end_date = 'constant wind, drinking fountain, turf', status = 'https://images.unsplash.com/photo-1494947665470-20322015e3a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80', project_id = p1)
     # t2 = Task(name = 'Open Meadows', description = "2983 Green St, Bend, OR, 69401", start_date = '5', end_date = 'gentle rolling hills, quiet breeze, birds chirping', status = 'https://images.unsplash.com/photo-1621851327323-bc467dd48d86?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80', project_id = p2)

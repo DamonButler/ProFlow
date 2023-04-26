@@ -86,21 +86,6 @@ class ProjectsById(Resource):
             {'delete': 'delete successful'},
             200
         )
-    
-    def patch(self, id):
-        print(request.get_json())
-        data = request.get_json()
-        project = Project.query.filter_by(id=id).first()
-
-        for key in data.keys():
-            setattr(project, key, data[key])
-        db.session.add(project)
-        db.session.commit()
-        return make_response(
-            project.to_dict(),
-            200
-        )
-
     def patch(self, id):
         print(request.get_json())
         data = request.get_json()

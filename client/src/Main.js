@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import Sidebar from './components/Sidebar'
 import Projects from "./components/Projects/Projects";
 import MyAccount from "./components/MyAccount/MyAccount"
 import Home from "./components/Home";
+import Tasks from "./components/Tasks/Tasks";
 
 function Main() {
 
@@ -13,7 +14,7 @@ function Main() {
     fetch('http://127.0.0.1:5555/projects')
     .then(r => r.json())
     .then(data => setProjects(data))
-  })
+  }, [])
 
   const addProjectsToState = (newProjectObj) => {
     setProjects([newProjectObj, ...projects])
@@ -24,18 +25,18 @@ function Main() {
     setProjects(newProjectArray)
   }
 
-    return (
-        <div className='pageContainer'>
-          <Sidebar/>
-          <div>
-            <Routes>
-              <Route path="*" element={<Home />} />
-              <Route path="/projects" element={<Projects addProjectsToState={addProjectsToState} showRemainingProjects={showRemainingProjects} />} />
-              <Route path="/myaccount" element={<MyAccount />} />
-            </Routes>
-          </div>
-        </div>
-      );
-    }
+  return (
+    <div className='pageContainer'>
+      <Sidebar/>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects addProjectsToState={addProjectsToState} showRemainingProjects={showRemainingProjects} />} />
+          <Route path="/myaccount" element={<MyAccount />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
 
 export default Main

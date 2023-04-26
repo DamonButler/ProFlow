@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProjectCard from './ProjectCard';
 
 function ProjectForm() {
@@ -13,22 +13,15 @@ function ProjectForm() {
 
   const [projects, setProjects] = useState([]);
 
-  useEffect(() => {
-    fetch('/projects')
-      .then(response => response.json())
-      .then(data => setProjects(data))
-      .catch(error => console.log(error));
-  }, []);
-
-  const handleChange = (event) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     fetch('/projects', {
       method: 'POST',
@@ -37,7 +30,7 @@ function ProjectForm() {
       },
       body: JSON.stringify(formData)
     })
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
         setProjects([...projects, data]);
         setFormData({
