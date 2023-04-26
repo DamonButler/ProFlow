@@ -36,6 +36,108 @@ class UserById(Resource):
         )
 api.add_resource(UserById, '/users/<int:id>')
 
+class Projects(Resource):
+    def get(self):
+        projects = Project.query.all()
+        return make_response(
+            [project.to_dict() for project in projects],
+            200
+        )
+    def post(self):
+            data = request.get_json()
+            project = Project(
+            name = data['name'],
+            description = data['description'],
+            start_date = data['start_date'],
+            end_date = data['end_date'],
+            status = data['status'],
+            user_id = data['user_id']
+            )
+            db.session.add(project)
+            db.session.commit()
+            return make_response(project.to_dict(), 201)
+       
+
+api.add_resource(Projects, '/projects')
+
+class ProjectsById(Resource):
+    def get(self,id):
+        project = Project.query.filter_by(id=id).first()
+        if not project:
+            return make_response(
+                {'error': "Project not found"},
+                404
+            )
+        return make_response(
+            project.to_dict(),
+            200
+        )
+    
+    def delete(self, id):
+        project = Project.query.filter_by(id=id).first()
+        if not project:
+            return make_response(
+                {'error': 'Project not found.'},
+                404
+            )
+        db.session.delete(project)
+        db.session.commit()
+        return make_response(
+            {'delete': 'delete successful'},
+            200
+        )
+    
+    def patch(self, id):
+        print(request.get_json())
+        data = request.get_json()
+        project = Project.query.filter_by(id=id).first()
+
+        for key in data.keys():
+            setattr(project, key, data[key])
+        db.session.add(project)
+        db.session.commit()
+        return make_response(
+            project.to_dict(),
+            200
+        )
+
+    def patch(self, id):
+        print(request.get_json())
+        data = request.get_json()
+        project = Project.query.filter_by(id=id).first()
+
+        for key in data.keys():
+            setattr(project, key, data[key])
+        db.session.add(project)
+        db.session.commit()
+        return make_response(
+            project.to_dict(),
+            200
+        )
+
+    
+api.add_resource(ProjectsById, '/projects/<int:id>')
+
+class Tasks(Resource):
+    def get(self):
+        tasks = Task.query.all()
+        return make_response(
+            [task.to_dict() for task in tasks],
+            200
+        )
+api.add_resource(Tasks, '/tasks')
+
+
+class UserProjects(Resource):
+    def get(self):
+        ups = UserProject.query.all()
+        return make_response(
+            [up.to_dict() for up in ups],
+            200
+        )
+api.add_resource(UserProjects, '/user_projects')
+
+
 
 class Signup(Resource):
     def post(self):
@@ -109,7 +211,10 @@ class CurrentSession(Resource):
             user,
             200
         )
-api.add_resource(CurrentSession, '/current-session')
+api.add_resource(CurrentSession, '/current_session')
+
+
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
