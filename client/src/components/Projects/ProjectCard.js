@@ -8,20 +8,6 @@ function ProjectCard(props) {
   const [showEditForm, setShowEditForm] = useState(false);
   const [showTasks, setShowTasks] = useState(false);
 
-
-//   const handleDelete = () => {
-//     fetch(`http://localhost:5555/projects/${id}`, {
-//       method: 'DELETE'
-//     })
-//     .then(response => {
-//       if (response.ok) {
-//         props.handleDelete(id);
-//       } else {
-//         throw new Error('Network response was not ok.');
-//       }
-//     })
-//     .catch(error => console.log(error));
-//   }
 const handleEdit = () => {
     setShowEditForm(true);
   };
@@ -41,7 +27,7 @@ const handleEdit = () => {
       <p>{start_date} - {end_date}</p>
       <p>{status}</p>
       <button onClick={toggleShowTasks}>Show Tasks</button>
-      {showTasks && <Tasks projectId={id} />}
+      {showTasks && <Tasks projectId={props.id} />}
       {/* <button onClick={handleDelete}>Delete</button> */}
       <button onClick={handleEdit}>Edit</button>
       {showEditForm && (
