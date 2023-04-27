@@ -1,81 +1,45 @@
 import React, {useState} from 'react'
-// import {useHistory} from 'react-router-dom'
-import { Route, Routes } from "react-router-dom";
-import Main from '../../Main';
-
-const sessionUser = []
+import { useContext } from 'react';
+import {UserContext} from '../../User'
 
 
-function LogIn({handleSignupClick}) {
+function Login() {
 
-    const [session, setSession] = useState(false)
+  const {setUser} = useContext(UserContext)
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-
-    if (session === false){
     
-    const newUser = {
-      username: username,
-      password: password,
-    }
-
-    sessionUser.push(newUser)
-
-    
-    const handleSubmit = (e) => {
-      e.preventDefault()
+    function handleSubmit(e) {
+      e.preventDefault();
       fetch("/login", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newUser)
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password
+        }),
       })
-        .then(r => {
-            if (r.status === 200){
-            r.json()
-            setSession(!session)
-            } else {
-            console.log('login failed')
-            }
-      })
-        e.target.reset()
+        .then((r) => r.json())
+        .then((user) => setUser(user));
     }
   
-    const setSignupState = (e) => {
-      handleSignupClick(e)
-    }
-
     return (
-        <div>
-          <div>Welcome to ProFlow!</div>
-          <div>
-            <div>
-              <h2>Login Here</h2>
-          </div>
-                <form onSubmit={handleSubmit}>
-                  <div>
-                    <input onChange={(e) => setUsername(e.target.value)} type="text" name="username" placeholder="username" />
-                  </div>
-                  <div>
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" placeholder="password" />
-                  </div>
-                <button type="submit">Submit</button>
-                </form>
-                <div>
-                    <button onClick={setSignupState} >Need an account? Create one!</button>
-                </div>
-            </div>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
+      </form>
     );
-    }
-    else{
-        return (
-            <div>
-                <Routes path="*">
-                <Route path="*" element={<Main currentUser={sessionUser[sessionUser.length - 1]} />} />
-                </Routes>
-            </div>
-        )
-    }
 }
 
-export default LogIn;
+export default Login

@@ -1,11 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { UserContext } from '../User';
+import { useContext } from 'react';
 
 function Sidebar() {
 
-  function refreshPage() {
-    window.location.href = '/';
+  const {user, setUser} = useContext(UserContext)
+
+  function handleLogout() {
+      fetch("/logout", {
+        method: "DELETE",
+      }).then(() => setUser(null));
   }
+
   return (
     <nav>
       <ul>
@@ -21,13 +28,11 @@ function Sidebar() {
         </li>
         <li>
           <NavLink to="/myaccount" >
-            Profile
+            {user ? user.username : 'Profile'}
           </NavLink>
         </li>
         <li style={{ marginLeft: 'auto' }}>
-          <NavLink to="/login" onClick={refreshPage}>
-            Logout
-          </NavLink>
+          <button onClick={handleLogout}>Logout</button>
         </li>
       </ul>
     </nav>

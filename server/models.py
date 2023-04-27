@@ -8,9 +8,9 @@ class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False, unique=True)
-    _password = db.Column(db.String, nullable=False)
+    username = db.Column(db.String)
+    email = db.Column(db.String)
+    _password = db.Column(db.String)
     image = db.Column(db.String)
 
     projects = db.relationship('Project', backref='user', lazy=True)
@@ -39,12 +39,12 @@ class Project(db.Model, SerializerMixin):
     serialize_rules = ("-user_projects", "-user")
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
-    start_date = db.Column(db.String, nullable=False)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    start_date = db.Column(db.String)
     end_date = db.Column(db.String, nullable=True)
-    status = db.Column(db.String, default='Not started', nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    status = db.Column(db.String, default='Not started')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tasks = db.relationship('Task', backref='project', lazy=True)
 
 
@@ -54,8 +54,8 @@ class UserProject(db.Model, SerializerMixin):
     serialize_rules = ('-projects', '-tasks')
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     created_at = db.Column(db.String)
 
 
@@ -65,12 +65,12 @@ class Task(db.Model, SerializerMixin):
     serialize_rules = ("-project",)
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
     start_date = db.Column(db.String)
     end_date = db.Column(db.String, nullable=True)
-    status = db.Column(db.String, default='Not started', nullable=False)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    status = db.Column(db.String, default='Not started')
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), default=0)
 
     @hybrid_property
     def user(self):

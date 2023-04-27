@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+
 function Tasks(props) {
   const [tasks, setTasks] = useState([]);
 
@@ -18,7 +19,7 @@ function Tasks(props) {
 }
 
 function Task(props) {
-  const { id, name, description, due_date, status } = props;
+  const { name, description, due_date, status } = props;
 
   return (
     <div className="task">
