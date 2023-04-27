@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Modal, Button } from 'semantic-ui-react';
 import ProjectCard from './ProjectCard';
 
 function ProjectForm() {
@@ -12,6 +13,7 @@ function ProjectForm() {
   });
 
   const [projects, setProjects] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -41,46 +43,13 @@ function ProjectForm() {
           status: '',
           user_id: ''
         });
+        setModalOpen(false);
       })
       .catch(error => console.log(error));
   };
 
   return (
     <div className="project-form-container">
-      <h2>Add a New Project</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input type="text" name="description" value={formData.description} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Start Date:
-          <input type="date" name="start_date" value={formData.start_date} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          End Date:
-          <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Status:
-          <input type="text" name="status" value={formData.status} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          User ID:
-          <input type="number" name="user_id" value={formData.user_id} onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit">Submit</button>
-      </form>
       <h2>Projects</h2>
       {projects.map(project => (
         <ProjectCard
@@ -94,8 +63,53 @@ function ProjectForm() {
           user_id={project.user_id}
         />
       ))}
+
+      <Modal
+        onClose={() => setModalOpen(false)}
+        onOpen={() => setModalOpen(true)}
+        open={modalOpen}
+        trigger={<Button color='blue'>Create New Project</Button>}
+      >
+        <Modal.Header>Add a New Project</Modal.Header>
+        <Modal.Content>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+              Description:
+              <input type="text" name="description" value={formData.description} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+              Start Date:
+              <input type="date" name="start_date" value={formData.start_date} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+              End Date:
+              <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+              Status:
+              <input type="text" name="status" value={formData.status} onChange={handleChange} />
+            </label>
+            <br />
+            <label>
+              User ID:
+              <input type="number" name="user_id" value={formData.user_id} onChange={handleChange} />
+            </label>
+            <br />
+            <Button type="submit" color='green'>Submit</Button>
+          </form>
+        </Modal.Content>
+      </Modal>
     </div>
   );
 }
 
 export default ProjectForm;
+

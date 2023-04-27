@@ -16,6 +16,13 @@ function Sidebar() {
   return (
     <nav>
       <ul>
+        {user ? null : (
+          <li>
+            <NavLink to="/login" >
+              Login
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink to="/" >
             Home
@@ -39,5 +46,4 @@ function Sidebar() {
   );
 }
 
-
-export default Sidebar
+export default Sidebar;
