@@ -39,22 +39,29 @@ p3 = Project( name = 'Delta', description = "Just booked a flight!", start_date 
 p4 = Project( name = 'Capstone', description = "Showing off the skills!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", user_id = u3.id)
 p5 = Project( name = 'Backend Broken', description = "If you know, you know....", start_date = faker.date(), end_date = faker.date(), status = "Calamity", user_id = u4.id)
 
-print("Creating Tasks...")
-
-t1 = Task( name = 'Flatiron', description = "Final Task for the 15 week course!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", project_id = 1)
-t2 = Task( name = 'Frozen', description = "Ever feel like you wish time could be frozen?", start_date = faker.date(), end_date = faker.date(), status = "Not started", project_id = 1)
-t3 = Task( name = 'Delta', description = "Just booked a flight!", start_date = faker.date(), end_date = faker.date(), status = "Completed", project_id = 2)
-t4 = Task( name = 'Capstone', description = "Showing off the skills!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", project_id = 3)
-t5 = Task( name = 'Backend Broken', description = "If you know, you know....", start_date = faker.date(), end_date = faker.date(), status = "Calamity", project_id = 4)
 
 
 db.session.add_all([u1, u2, u3, u4, u5])
+
+db.session.commit()
+
+
 db.session.add_all([p1, p2, p3, p4, p5])
 
 
 db.session.commit()
 
+print("Creating Tasks...")
+
+t1 = Task( name = 'Finish Backend', description = "Finish building out the backend so that the frontend devs can begin working", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", project_id = p1.id)
+t2 = Task( name = 'Send for code review', description = "Code is done and being sent to the senior dev for review", start_date = faker.date(), end_date = faker.date(), status = "Not started", project_id = p1.id)
+t3 = Task( name = 'Build out basic frontend and backend functionality', description = "Build out the basics and send for review once completed", start_date = faker.date(), end_date = faker.date(), status = "Completed", project_id = p2.id)
+t4 = Task( name = 'Assign Team members', description = "We need one frontend dev, one backend dev", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", project_id = p3.id)
+t5 = Task( name = 'Rebuild the broken back end', description = "Calamity on the backend, work on a fix, or rebuild.", start_date = faker.date(), end_date = faker.date(), status = "Calamity", project_id = p4.id)
+
+
 print("Creating User Projects...")
+
 
 up1 = UserProject(user_id=u1.id, project_id=p1.id, created_at=faker.date())
 up2 = UserProject(user_id=u2.id, project_id=p2.id, created_at=faker.date())
@@ -62,6 +69,8 @@ up3 = UserProject(user_id=u3.id, project_id=p3.id, created_at=faker.date())
 up4 = UserProject(user_id=u4.id, project_id=p4.id, created_at=faker.date())
 up5 = UserProject(user_id=u5.id, project_id=p5.id, created_at=faker.date())
 
+
+db.session.add_all([t1, t2, t3, t4, t5])
 db.session.add_all([up1, up2, up3, up4, up5])
 db.session.commit()
 
