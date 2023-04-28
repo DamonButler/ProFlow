@@ -10,6 +10,7 @@ import { UserProvider } from "./User";
 function App() {
     const [signUp, setSignUp] = useState(false)
     const [users, setUsers] = useState([])
+
     const handleSignupClick=() =>{
         setSignUp(!signUp)
     }

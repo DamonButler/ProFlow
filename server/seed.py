@@ -31,6 +31,12 @@ u3 = User( username = 'Lauren', email = "lauren@proflow.com", _password = "passw
 u4 = User( username = 'Megan', email = "megan@proflow.com", _password = "password", image = "https://scontent-ord5-1.xx.fbcdn.net/v/t1.18169-9/20106381_1628016840572821_4142912690782109668_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=UTI9exoaDXwAX-RoPbW&_nc_ht=scontent-ord5-1.xx&oh=00_AfAMgPZXLluBCtAysxWpALvRk2DHDb2GPZzsxZ2wbw7Zig&oe=647256FD")
 u5 = User( username = 'Kyle', email = "kyle@proflow.com", _password = "password", image = "https://scontent-ord5-1.xx.fbcdn.net/v/t1.18169-9/10348282_10153039089778679_84708933128524464_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cdbe9c&_nc_ohc=h_D-6kbm8CYAX8pExAx&_nc_ht=scontent-ord5-1.xx&oh=00_AfCoQu4qPuu0_8dVHRDMI5K8ZmXOYTkxwIxPr-Sfr5fwYQ&oe=64724AB5")
 
+
+
+db.session.add_all([u1, u2, u3, u4, u5])
+
+db.session.commit()
+
 print("Creating Projects...")
 
 p1 = Project( name = 'Flatiron', description = "Final project for the 15 week course!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", user_id = u1.id)
@@ -38,12 +44,6 @@ p2 = Project( name = 'Frozen', description = "Ever feel like you wish time could
 p3 = Project( name = 'Delta', description = "Just booked a flight!", start_date = faker.date(), end_date = faker.date(), status = "Completed", user_id = u2.id)
 p4 = Project( name = 'Capstone', description = "Showing off the skills!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", user_id = u3.id)
 p5 = Project( name = 'Backend Broken', description = "If you know, you know....", start_date = faker.date(), end_date = faker.date(), status = "Calamity", user_id = u4.id)
-
-
-
-db.session.add_all([u1, u2, u3, u4, u5])
-
-db.session.commit()
 
 
 db.session.add_all([p1, p2, p3, p4, p5])

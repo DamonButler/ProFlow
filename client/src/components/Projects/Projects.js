@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, Modal } from 'semantic-ui-react';
 import ProjectForm from './ProjectForm';
 import EditProjectForm from './EditProjectForm';
+import { UserContext } from '../../User';
+import { useContext } from 'react';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -11,11 +13,19 @@ function Projects() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showTasksModal, setShowTasksModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const {user, setUser} = useContext(UserContext)
+
+
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/projects');
+        const sessionResponse = await fetch('/check_session');
+        const sessionData = await sessionResponse.json();
+        const userId = sessionData.user_id;
+
+        const response = await fetch(`/projects?user_id=${userId}`);
         const data = await response.json();
         setProjects(data);
       } catch (error) {
@@ -79,13 +89,17 @@ function Projects() {
     setShowTasksModal(true);
   };
 
-  const projectComponents = projects.map((eachProject) => {
+  const handleTaskClick = (task) => {
+    setSelectedTask(task);
+  };
+
+const projectComponents = (user?.projects || []).map((eachProject) => {
     return (
-      <Card key={eachProject.id}>
+      <Card key={eachProject?.id}>
         <Card.Content>
-          <Card.Header>{eachProject.name}</Card.Header>
-          <Card.Meta>{eachProject.status}</Card.Meta>
-          <Card.Description>{eachProject.description}</Card.Description>
+          <Card.Header>{eachProject?.name}</Card.Header>
+          <Card.Meta>{eachProject?.status}</Card.Meta>
+          <Card.Description>{eachProject?.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
           <Button basic color='blue' onClick={() => handleEdit(eachProject)}>Manage</Button>
@@ -103,19 +117,19 @@ function Projects() {
       </div>
       <div className="projects-container">{projectComponents}</div>
       <Modal
-        open={showEditModal}
-        onClose={() => {
-          setShowEditModal(false);
-          setEditingProject(null);
-        }}
-      >
-        <Modal.Header>Manage Project</Modal.Header>
-        <Modal.Content>
-          <EditProjectForm
-            project={editingProject}
-            handleUpdateProject={handleUpdateProject}
-          />
-       </Modal.Content>
+    open={showEditModal}
+    onClose={() => {
+      setShowEditModal(false);
+      setEditingProject(null);
+    }}
+  >
+    <Modal.Header>Manage Project</Modal.Header>
+    <Modal.Content>
+      <EditProjectForm
+        project={editingProject}
+        handleUpdateProject={handleUpdateProject}
+      />
+    </Modal.Content>
   </Modal>
   <Modal
     open={showDeleteModal}
@@ -157,11 +171,16 @@ function Projects() {
       {selectedProject?.tasks?.length === 0 ? (
         <p>No tasks assigned to this project.</p>
       ) : (
-        <ul>
+        <Card.Group>
           {selectedProject?.tasks?.map((task) => (
-            <li key={task.id}>{task.name}</li>
+            <Card key={task.id} onClick={() => handleTaskClick(task)}>
+              <Card.Content>
+                <Card.Header>{task.name}</Card.Header>
+                <Card.Meta>{task.status}</Card.Meta>
+              </Card.Content>
+            </Card>
           ))}
-        </ul>
+        </Card.Group>
       )}
     </Modal.Content>
     <Modal.Actions>
@@ -170,8 +189,22 @@ function Projects() {
       </Button>
     </Modal.Actions>
   </Modal>
+  <Modal
+    open={!!selectedTask}
+    onClose={() => setSelectedTask(null)}
+  >
+    <Modal.Header>{selectedTask?.name}</Modal.Header>
+    <Modal.Content>
+      <p>Description: {selectedTask?.description}</p>
+    </Modal.Content>
+    <Modal.Actions>
+      <Button basic color="blue" onClick={() => setSelectedTask(null)}>
+        Close
+      </Button>
+    </Modal.Actions>
+  </Modal>
 </>
-  )
+);
           }
 
 export default Projects;
