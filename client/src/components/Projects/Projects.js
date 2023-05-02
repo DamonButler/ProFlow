@@ -15,7 +15,7 @@ function Projects({handleProjectDelete}) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showTasksModal, setShowTasksModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  const {user, setUser, refreshUserProjects, refreshUser} = useContext(UserContext)
+  const {user, refreshUser} = useContext(UserContext)
 
 
 
@@ -25,8 +25,6 @@ function Projects({handleProjectDelete}) {
         const sessionResponse = await fetch('/check_session');
         const sessionData = await sessionResponse.json();
         const userId = sessionData.id;
-        console.log(userId)
-  
         const response = await fetch(`/projects?user_id=${userId}`);
         const data = await response.json();
         
@@ -34,7 +32,6 @@ function Projects({handleProjectDelete}) {
           ...project,
           user_id: userId,
         }));
-        console.log(projectsWithUserId)
         setProjects(projectsWithUserId);
       } catch (error) {
         console.log(error);
@@ -87,7 +84,6 @@ function Projects({handleProjectDelete}) {
       setEditingProject(null);
       setShowEditModal(false);
     } catch (error) {
-      console.log(error);
     }
   };
 

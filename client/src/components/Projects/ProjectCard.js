@@ -28,7 +28,6 @@ const handleEdit = () => {
       <p>{status}</p>
       <button onClick={toggleShowTasks}>Show Tasks</button>
       {showTasks && <Tasks projectId={props.id} />}
-      {/* <button onClick={handleDelete}>Delete</button> */}
       <button onClick={handleEdit}>Edit</button>
       {showEditForm && (
         <EditProjectForm project={props} onClose={handleCancelEdit} />
