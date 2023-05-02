@@ -13,8 +13,16 @@ function UserProvider({children}) {
     });
   }, []);
 
+  const refreshUser = () => {
+    fetch("/check_session").then(r => {
+        if (r.ok) {
+            r.json().then((user) => setUser(user));
+        }
+    });
+}
+
 return(
-  <UserContext.Provider value = {{user, setUser}}>
+  <UserContext.Provider value = {{user, setUser, refreshUser}}>
     {children}
   </UserContext.Provider>
 )

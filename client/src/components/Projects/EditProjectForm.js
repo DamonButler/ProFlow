@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'semantic-ui-react';
+import { UserContext } from '../../User';
+import { useContext } from 'react';
 
 function EditProjectForm({ project, handleUpdateProject }) {
   const [formData, setFormData] = useState({
@@ -11,6 +13,25 @@ function EditProjectForm({ project, handleUpdateProject }) {
     user_id: project.user_id,
   });
   const [open, setOpen] = useState(false);
+  const { user, refreshUser } = useContext(UserContext);
+  const [userData, setUserData] = useState(null);
+
+  // Load user data when the component mounts
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/users/${formData.user_id}`);
+        if (!response.ok) {
+          throw new Error('Failed to load user data.');
+        }
+        const userData = await response.json();
+        setUserData(userData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserData();
+  }, [formData.user_id]);
 
   const handleChange = (event) => {
     setFormData({
@@ -36,6 +57,7 @@ function EditProjectForm({ project, handleUpdateProject }) {
       const updatedProject = await response.json();
       handleUpdateProject(updatedProject); // Pass updated project data to callback
       setOpen(false);
+      refreshUser(); // Call the refreshUser function to update the user data
     } catch (error) {
       console.log(error);
     }

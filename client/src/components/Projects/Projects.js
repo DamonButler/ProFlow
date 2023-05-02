@@ -5,6 +5,7 @@ import EditProjectForm from './EditProjectForm';
 import { UserContext } from '../../User';
 import { useContext } from 'react';
 
+
 function Projects() {
   const [projects, setProjects] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
@@ -24,7 +25,7 @@ function Projects() {
         const sessionResponse = await fetch('/check_session');
         const sessionData = await sessionResponse.json();
         const userId = sessionData.user_id;
-
+  
         const response = await fetch(`/projects?user_id=${userId}`);
         const data = await response.json();
         setProjects(data);
@@ -32,9 +33,9 @@ function Projects() {
         console.log(error);
       }
     }
-
+  
     fetchData();
-  }, []);
+  }, [projects]);
 
   const handleDelete = async (id) => {
     try {
@@ -43,7 +44,7 @@ function Projects() {
         throw new Error('Failed to delete project.');
       }
       const updatedProjects = projects.filter((project) => project.id !== id);
-      setProjects(updatedProjects);
+      setProjects([...updatedProjects]); // create a new array with updated projects
     } catch (error) {
       console.log(error);
     }
