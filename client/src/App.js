@@ -49,16 +49,6 @@ function App() {
         }))
     }
 
-    const handleProjectPatch = updatedProjects => {
-        setProjects(projects.map(project => {
-            if (project.id === updatedProjects.id) {
-                return {...updatedProjects};
-            } else {
-                return project
-            }
-        }))
-    }
-
     
     return (
 
@@ -69,7 +59,7 @@ function App() {
                 <div>
                     <Routes>
                         <Route path="/" element={user ? <h2>Welcome {user?.username}!</h2> : <h2>Welcome to ProFlow</h2>} />
-                        <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectPatch={handleProjectPatch} handleProjectDelete={handleProjectDelete}/>} />
+                        <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectDelete={handleProjectDelete}/>} />
                         <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
                         <Route path='/signup' element={<SignUp addUserToState={addUserToState} />} />
                         <Route path='/myaccount' element={<MyAccount />} />
