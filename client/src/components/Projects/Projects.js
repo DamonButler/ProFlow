@@ -116,7 +116,7 @@ const projectComponents = (user?.projects || []).map((eachProject) => {
   return (
     <>
       <div>
-        <ProjectForm />
+      <ProjectForm setProjects={setProjects} projects={projects} />
       </div>
       <div className="projects-container">{projectComponents}</div>
       <Modal

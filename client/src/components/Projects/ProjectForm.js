@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import { Modal, Button, Card } from 'semantic-ui-react';
 import ProjectCard from './ProjectCard';
 
 function ProjectForm() {
@@ -14,12 +14,36 @@ function ProjectForm() {
 
   const [projects, setProjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [deletingProject, setDeletingProject] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [showTasksModal, setShowTasksModal] = useState(false);
+
+  
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+
+  const handleEdit = (project) => {
+    setEditingProject(project);
+    setShowEditModal(true);
+  };
+
+  const handleDeleteModal = (project) => {
+    setDeletingProject(project);
+    setShowDeleteModal(true);
+  };
+
+  const handleTasksModal = (project) => {
+    setSelectedProject(project);
+    setShowTasksModal(true);
   };
 
   const handleSubmit = (e) => {
@@ -51,18 +75,33 @@ function ProjectForm() {
   return (
     <div className="project-form-container">
       <h2>Projects</h2>
-      {projects.map(project => (
-        <ProjectCard
-          key={project.id}
-          id={project.id}
-          name={project.name}
-          description={project.description}
-          start_date={project.start_date}
-          end_date={project.end_date}
-          status={project.status}
-          user_id={project.user_id}
-        />
-      ))}
+      <Card.Group>
+  {projects.map((project) => (
+    <Card key={project.id}>
+      <Card.Content>
+        <Card.Header>{project.name}</Card.Header>
+        <Card.Meta>{project.status}</Card.Meta>
+        <Card.Description>{project.description}</Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Button basic color='blue' onClick={() => handleEdit(project)}>
+          Manage
+        </Button>
+        <Button basic color='green' onClick={() => handleTasksModal(project)}>Tasks</Button>
+        <Button basic color='red' onClick={() => handleDeleteModal(project)}>
+          Delete
+        </Button>
+      </Card.Content>
+    </Card>
+  ))}
+</Card.Group>
+
+
+
+
+
+
+
 
       <Modal
         onClose={() => setModalOpen(false)}
