@@ -2,14 +2,18 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserContext } from '../User';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function Sidebar() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function handleLogout() {
     fetch('/logout', {
       method: 'DELETE',
     }).then(() => setUser(null));
+    navigate('/login')
   }
 
   return (

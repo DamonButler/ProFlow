@@ -1,5 +1,5 @@
-
-from flask import make_response, request, session, jsonify
+from flask import make_response, request, session, abort
+from functools import wraps
 from flask_restful import Resource
 
 from config import app, db, api
@@ -7,7 +7,19 @@ from models import User, Project, Task, UserProject
 
 session_user = []
 
+def is_logged_in():
+    return 'user_id' in session
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not is_logged_in():
+            abort(401)
+        return f(*args, **kwargs)
+    return decorated_function
+
 class Users(Resource):
+    @login_required
     def get(self):
         users = [u.to_dict() for u in User.query.all()]
         return make_response(
@@ -17,6 +29,7 @@ class Users(Resource):
 api.add_resource(Users, '/users')
 
 class UserById(Resource):
+    @login_required
     def get(self, id):
         user = User.query.filter(User.id == id).first()
         if not user:
@@ -33,12 +46,15 @@ class UserById(Resource):
 api.add_resource(UserById, '/users/<int:id>')
 
 class Projects(Resource):
+    @login_required
     def get(self):
         projects = Project.query.all()
         return make_response(
             [project.to_dict() for project in projects],
             200
         )
+    
+    @login_required
     def post(self):
         data = request.get_json()
         user_id = session.get('user_id')
@@ -62,6 +78,7 @@ class Projects(Resource):
 api.add_resource(Projects, '/projects')
 
 class ProjectsById(Resource):
+    @login_required
     def get(self,id):
         project = Project.query.filter_by(id=id).first()
         if not project:
@@ -74,6 +91,7 @@ class ProjectsById(Resource):
             200
         )
     
+    @login_required
     def delete(self, id):
         project = Project.query.filter_by(id=id).first()
         if not project:
@@ -87,6 +105,8 @@ class ProjectsById(Resource):
             {'delete': 'delete successful'},
             200
         )
+    
+    @login_required
     def patch(self, id):
         data = request.get_json()
         project = Project.query.filter_by(id=id).first()
@@ -101,6 +121,7 @@ class ProjectsById(Resource):
 api.add_resource(ProjectsById, '/projects/<int:id>')
 
 class Tasks(Resource):
+    @login_required
     def get(self):
         tasks = Task.query.all()
         return make_response(
@@ -108,6 +129,7 @@ class Tasks(Resource):
             200
         )
     
+    @login_required
     def post(self):
         task_data = request.get_json()
         try:
@@ -122,6 +144,7 @@ class Tasks(Resource):
 api.add_resource(Tasks, '/tasks')
 
 class TasksById(Resource):
+    @login_required
     def get(self,id):
         task = Task.query.filter_by(id=id).first()
         if not task:
@@ -133,7 +156,7 @@ class TasksById(Resource):
             task.to_dict(),
             200
         )
-    
+    @login_required
     def delete(self, id):
         task = Task.query.filter_by(id=id).first()
         if not task:
@@ -152,6 +175,7 @@ api.add_resource(TasksById, '/tasks/<int:id>')
 
 
 class UserProjects(Resource):
+    @login_required
     def get(self):
         ups = UserProject.query.all()
         return make_response(

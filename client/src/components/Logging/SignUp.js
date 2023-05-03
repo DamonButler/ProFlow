@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../User";
 
 function SignUp({addUserToState}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [image, setImage] = useState("")
+    const {refreshUser} = useContext(UserContext)
+    const navigate = useNavigate();
   
     const user = {
         username: username,
@@ -23,6 +27,8 @@ function SignUp({addUserToState}) {
             .then(r => {
                 if (r.ok){
                     r.json().then(addUserToState(user))
+                    refreshUser()
+                    navigate('/')
                 } else {
                     console.log('failure')
                 }   

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 import Sidebar from './components/Sidebar'
 import Projects from "./components/Projects/Projects";
 import MyAccount from "./components/MyAccount/MyAccount"
