@@ -18,7 +18,6 @@ faker = Faker()
 
 print("Deleting data...")
 User.query.delete()
-Project.query.delete()
 Task.query.delete()
 UserProject.query.delete()
 

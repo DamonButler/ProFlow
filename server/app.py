@@ -1,17 +1,10 @@
-#!/usr/bin/env python3
 
-# Standard library imports
-
-# Remote library imports
 from flask import make_response, request, session, jsonify
 from flask_restful import Resource
 
-# Local imports
 from config import app, db, api
 from models import User, Project, Task, UserProject
 
-
-# Views go here!
 session_user = []
 
 class Users(Resource):
@@ -47,18 +40,23 @@ class Projects(Resource):
             200
         )
     def post(self):
-            data = request.get_json()
-            project = Project(
-            name = data['name'],
-            description = data['description'],
-            start_date = data['start_date'],
-            end_date = data['end_date'],
-            status = data['status'],
-            user_id = data['user_id']
-            )
-            db.session.add(project)
-            db.session.commit()
-            return make_response(project.to_dict(), 201)
+        data = request.get_json()
+        user_id = session.get('user_id')
+        if not user_id:
+            return {'message': '401: Not Authorized'}, 401
+
+        project = Project(
+            name=data['name'],
+            description=data['description'],
+            start_date=data['start_date'],
+            end_date=data['end_date'],
+            status=data['status'],
+            user_id=user_id
+        )
+        db.session.add(project)
+        db.session.commit()
+
+        return make_response(project.to_dict(), 201)
        
 
 api.add_resource(Projects, '/projects')
@@ -112,18 +110,45 @@ class Tasks(Resource):
     
     def post(self):
         task_data = request.get_json()
+        try:
+            new_task = Task(**task_data)
+            db.session.add(new_task)
+            db.session.commit()
+        except ValueError as e:
+            return {'msg': str(e)}, 422
 
-        new_task = Task(name=task_data['name'],
-                        description=task_data['description'],
-                        start_date=task_data['start_date'],
-                        end_date=task_data['end_date'],
-                        status=task_data['status'],
-                        project_id=task_data['project_id'])
-        db.session.add(new_task)
-        db.session.commit()
         return {'message': 'Task created successfully.'}, 201
 
 api.add_resource(Tasks, '/tasks')
+
+class TasksById(Resource):
+    def get(self,id):
+        task = Task.query.filter_by(id=id).first()
+        if not task:
+            return make_response(
+                {'error': "Task not found"},
+                404
+            )
+        return make_response(
+            task.to_dict(),
+            200
+        )
+    
+    def delete(self, id):
+        task = Task.query.filter_by(id=id).first()
+        if not task:
+            return make_response(
+                {'error': 'Task not found.'},
+                404
+            )
+        db.session.delete(task)
+        db.session.commit()
+        return make_response(
+            {'delete': 'delete successful'},
+            200
+        )
+        
+api.add_resource(TasksById, '/tasks/<int:id>')
 
 
 class UserProjects(Resource):
@@ -148,6 +173,8 @@ class Signup(Resource):
         )
         db.session.add(new_user)
         db.session.commit()
+
+        session['user_id'] = new_user.id
 
         return make_response(
             {},

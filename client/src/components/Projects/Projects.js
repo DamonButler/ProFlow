@@ -51,6 +51,15 @@ function Projects({handleProjectDelete}) {
         console.log(error);
       });
   };
+  const handleProjectAddition = (project) => {
+    fetch('/projects')
+      .then((response) => response.json())
+      .then((data) => {
+        setProjects(data);
+        refreshUser();
+      })
+      .catch((error) => console.log(error));
+  };
   
 
   const handleEdit = (project) => {
@@ -115,10 +124,11 @@ const projectComponents = (user?.projects || []).map((eachProject) => {
 
   return (
     <>
-      <div>
-      <ProjectForm setProjects={setProjects} projects={projects} />
-      </div>
+
       <div className="projects-container">{projectComponents}</div>
+      <div>
+      <ProjectForm handleProjectAddition={handleProjectAddition}  />
+      </div>
       <Modal
     open={showEditModal}
     onClose={() => {

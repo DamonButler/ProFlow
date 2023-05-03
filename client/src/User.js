@@ -20,13 +20,6 @@ const refreshUser = () => {
       }
   });
 }
-// const refreshUserProjects = () => {
-//     fetch(`/projects`).then(r => {
-//         if (r.ok) {
-//             r.json().then((projects) => setUser(projects));
-//         }
-//     });
-// }
 
 const addUserProject = (projectObj) => {
   const userCopy = {...user}

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal, Button, Card } from 'semantic-ui-react';
-import ProjectCard from './ProjectCard';
+import { UserContext } from '../../User';
 
 function ProjectForm() {
   const [formData, setFormData] = useState({
@@ -19,7 +19,8 @@ function ProjectForm() {
   const [deletingProject, setDeletingProject] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [showTasksModal, setShowTasksModal] = useState(false);
+  const [showTasksModal, setShowTasksModal] = useState(false)
+  const {addUserProject} = useContext(UserContext)
 
   
 
@@ -58,7 +59,7 @@ function ProjectForm() {
     })
       .then(r => r.json())
       .then(data => {
-        setProjects([...projects, data]);
+        addUserProject(data)
         setFormData({
           name: '',
           description: '',
@@ -74,7 +75,8 @@ function ProjectForm() {
 
   return (
     <div className="project-form-container">
-      <h2>Projects</h2>
+      <br/>
+      <br/>
       <Card.Group>
   {projects.map((project) => (
     <Card key={project.id}>
@@ -95,14 +97,6 @@ function ProjectForm() {
     </Card>
   ))}
 </Card.Group>
-
-
-
-
-
-
-
-
       <Modal
         onClose={() => setModalOpen(false)}
         onOpen={() => setModalOpen(true)}
@@ -137,11 +131,6 @@ function ProjectForm() {
               <input type="text" name="status" value={formData.status} onChange={handleChange} />
             </label>
             <br />
-            <label>
-              User ID:
-              <input type="number" name="user_id" value={formData.user_id} onChange={handleChange} />
-            </label>
-            <br />
             <Button type="submit" color='green'>Submit</Button>
           </form>
         </Modal.Content>
@@ -151,4 +140,3 @@ function ProjectForm() {
 }
 
 export default ProjectForm;
-

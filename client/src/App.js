@@ -10,12 +10,13 @@ import { UserProvider } from "./User";
 function App() {
     const [signUp, setSignUp] = useState(false)
     const [users, setUsers] = useState([])
+    const [user, setUser] = useState(null);
+    const [projects, setProjects] = useState([])
+    const [tasks, setTasks] = useState([])
 
     const handleSignupClick=() =>{
         setSignUp(!signUp)
     }
-
-    const [user, setUser] = useState(null);
 
     const handleLogin = (loggedInUser) => {
         setUser(loggedInUser);
@@ -24,8 +25,6 @@ function App() {
     const handleLogout = () => {
         setUser(null);
     };
-
-    const [projects, setProjects] = useState([])
 
     useEffect(() => {
         fetch('http://127.0.0.1:5555/projects')
@@ -49,6 +48,12 @@ function App() {
         }))
     }
 
+    const handleTaskDelete = (id) => {
+        setTasks(tasks.filter(task => {
+            return task.id !== id
+        }))
+    }
+
     
     return (
 
@@ -59,7 +64,7 @@ function App() {
                 <div>
                     <Routes>
                         <Route path="/" element={user ? <h2>Welcome {user?.username}!</h2> : <h2>Welcome to ProFlow</h2>} />
-                        <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectDelete={handleProjectDelete}/>} />
+                        <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectDelete={handleProjectDelete} handleTaskDelete={handleTaskDelete}/>} />
                         <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
                         <Route path='/signup' element={<SignUp addUserToState={addUserToState} />} />
                         <Route path='/myaccount' element={<MyAccount />} />
