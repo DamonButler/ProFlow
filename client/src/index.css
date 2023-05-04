@@ -11,3 +11,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.login-header {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ui.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.proflow-body {
+  background-color: #F8F8F8;
+}
+
+.proflow-title {
+  text-align: center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+}
+
+.submit-button {
+  margin-top: 1rem;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signup-welcome {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.signup-button {
+  margin-right: 1rem;
+}
+
+.signup-header {
+  text-align: center;
+}
+
+.signup-submit-button {
+  margin-top: 1rem;
+}
