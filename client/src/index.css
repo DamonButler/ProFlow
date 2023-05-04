@@ -132,3 +132,50 @@ code {
   border: 3px solid black;
   padding: 20px;
 }
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 16px;
+}
+
+.sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.sidebar__item {
+  margin-bottom: 8px;
+}
+
+.sidebar__link {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sidebar__link:hover {
+  background-color: #ddd;
+}
+
+.sidebar__button {
+  color: #fff;
+  background-color: #f44336;
+  border: none;
+  padding: 7px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sidebar__button:hover {
+  background-color: #e53935;
+}

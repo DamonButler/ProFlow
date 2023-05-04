@@ -4,7 +4,6 @@ import { UserContext } from '../User';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 function Sidebar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -17,33 +16,33 @@ function Sidebar() {
   }
 
   return (
-    <nav>
-      <ul>
+    <nav className="sidebar">
+      <ul className="sidebar__list">
         {!user && (
           <>
-            <li>
-              <NavLink to="/login">Login</NavLink>
+            <li className="sidebar__item">
+              <NavLink to="/login" className="sidebar__link">Login</NavLink>
             </li>
-            <li>
-              <NavLink to="/signup">Signup</NavLink>
+            <li className="sidebar__item">
+              <NavLink to="/signup" className="sidebar__link">Signup</NavLink>
             </li>
           </>
         )}
         {user && (
           <>
-            <li>
-              <NavLink to="/">Home</NavLink>
+            <li className="sidebar__item">
+              <NavLink to="/" className="sidebar__link">Home</NavLink>
             </li>
-            <li>
-              <NavLink to="/projects">Projects</NavLink>
+            <li className="sidebar__item">
+              <NavLink to="/projects" className="sidebar__link">Projects</NavLink>
             </li>
-            <li>
-              <NavLink to="/myaccount">
+            <li className="sidebar__item">
+              <NavLink to="/myaccount" className="sidebar__link">
                 {user ? user.username : 'Profile'}
               </NavLink>
             </li>
-            <li style={{ marginLeft: 'auto' }}>
-              <button onClick={handleLogout}>Logout</button>
+            <li className="sidebar__item" style={{ marginLeft: 'auto' }}>
+              <button onClick={handleLogout} className="sidebar__button">Logout</button>
             </li>
           </>
         )}

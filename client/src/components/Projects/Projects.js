@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Modal } from 'semantic-ui-react';
+import { Button, Card, Modal , Grid} from 'semantic-ui-react';
 import ProjectForm from './ProjectForm';
 import EditProjectForm from './EditProjectForm';
 import { UserContext } from '../../User';
@@ -215,7 +215,7 @@ const projectComponents = (user?.projects || []).map((eachProject) => {
     </Modal.Content>
     <Modal.Actions>
       <Button basic color="blue" onClick={() => setSelectedTask(null)}>
-        Close
+        Back
       </Button>
     </Modal.Actions>
   </Modal>
