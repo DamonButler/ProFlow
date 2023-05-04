@@ -129,9 +129,25 @@ code {
 }
 
 .user-card {
-  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  width: 350px;
+  margin: 0 auto;
   padding: 20px;
+  align-content: center;
 }
+
+.user-card img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: 90%;
+}
+
+
 .sidebar {
   display: flex;
   flex-direction: row;
@@ -146,6 +162,7 @@ code {
   display: flex;
   flex-direction: row;
   height: 100%;
+  width: 100%;
 }
 
 .sidebar__item {
@@ -174,8 +191,27 @@ code {
   font-size: 1.1rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  align-self: flex-end;
 }
 
 .sidebar__button:hover {
   background-color: #e53935;
 }
+.projects-container {
+  display: flex;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.create-project-container {
+  margin-bottom: 16px;
+}
+
+.projects-list {
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
