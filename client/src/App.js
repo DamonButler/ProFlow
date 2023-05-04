@@ -6,6 +6,7 @@ import MyAccount from "./components/MyAccount/MyAccount"
 import SignUp from './components/Logging/SignUp'
 import Login from './components/Logging/Login'
 import { UserProvider } from "./User";
+import Home from "./components/Home";
 
 function App() {
     const [signUp, setSignUp] = useState(false)
@@ -63,7 +64,7 @@ function App() {
                 {<Sidebar handleLogout={handleLogout} />}
                 <div>
                     <Routes>
-                        <Route path="/" element={user ? <h2>Welcome {user?.username}!</h2> : <h2>Welcome to ProFlow</h2>} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectDelete={handleProjectDelete} handleTaskDelete={handleTaskDelete}/>} />
                         <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
                         <Route path='/signup' element={<SignUp addUserToState={addUserToState} />} />

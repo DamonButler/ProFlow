@@ -5,14 +5,16 @@ function MyAccount() {
   const { user } = useContext(UserContext);
 
   return (
-    <div>
-      <h1>Profile Page</h1>
-      <h2>{user?.username}</h2>
-      <p>{user?.email}</p>
-      <img src={user?.image} alt='Profile Pic'/>
+    <div className="my-account-container">
+      <div className="my-account-image-container">
+        <img src={user?.image} alt='Profile Pic'/>
+      </div>
+      <div className="my-account-info-container">
+        <h2>{user?.username}</h2>
+        <p>{user?.email}</p>
+      </div>
     </div>
   );
 }
 
 export default MyAccount;
-

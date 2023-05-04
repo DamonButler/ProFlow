@@ -93,10 +93,6 @@ function EditProjectForm({ project, handleUpdateProject }) {
             <label>Status</label>
             <input type="text" name="status" value={formData.status} onChange={handleChange} />
           </Form.Field>
-          <Form.Field>
-            <label>User ID</label>
-            <input type="number" name="user_id" value={formData.user_id} onChange={handleChange} />
-          </Form.Field>
         </Form>
       </Modal.Content>
       <Modal.Actions>
