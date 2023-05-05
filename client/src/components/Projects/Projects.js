@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card, Modal , Grid} from 'semantic-ui-react';
 import ProjectForm from './ProjectForm';
 import EditProjectForm from './EditProjectForm';
+import ProjectOptionsMenu from './ProjectOptionsMenu'
 import { UserContext } from '../../User';
 import { useContext } from 'react';
 
@@ -105,12 +106,29 @@ function Projects({handleProjectDelete}) {
     setSelectedTask(task);
   };
 
-const projectComponents = (user?.projects || []).map((eachProject) => {
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'In progress':
+        return { color: 'orange' };
+      case 'Completed':
+        return { color: 'green' };
+      case 'Canceled':
+        return { color: 'red' };
+      default:
+        return { color: 'black' };
+    }
+  };
+  
+  const projectComponents = (user?.projects || []).map((eachProject) => {
     return (
       <Card key={eachProject.id}>
         <Card.Content>
-          <Card.Header>{eachProject.name}</Card.Header>
-          <Card.Meta>{eachProject.status}</Card.Meta>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div><Card.Header>{eachProject.name}</Card.Header>
+            </div>
+            <div> <Card.Meta style={getStatusStyle(eachProject.status)}>{eachProject.status}</Card.Meta></div>
+          </div>
+          <br/>
           <Card.Description>{eachProject?.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
@@ -121,17 +139,23 @@ const projectComponents = (user?.projects || []).map((eachProject) => {
       </Card>
     );
   });
+  
+  
 
   return (
     <>
-
+    <div>
+      <h2>All Projects</h2>
+      </div>
         <div className="create-project-container">
           <ProjectForm handleProjectAddition={handleProjectAddition} />
         </div>
+        <br/><br/>
         <div className="projects-container">
-        <div className="projects-list">
+        <Grid className="projects-grid" 
+        columns={4} doubling>
           {projectComponents}
-        </div>
+        </Grid>
       </div>
       <Modal
         open={showEditModal}

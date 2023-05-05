@@ -17,6 +17,7 @@ function Sidebar() {
 
   return (
     <nav className="sidebar">
+      <h2 className="sidebar_title">ProFlow</h2>
       <ul className="sidebar__list">
         {!user && (
           <>
@@ -28,7 +29,7 @@ function Sidebar() {
         {user && (
           <>
             <li className="sidebar__item">
-              <NavLink to="/" className="sidebar__link">Home</NavLink>
+              <NavLink to="/team" className="sidebar__link">Team</NavLink>
             </li>
             <li className="sidebar__item">
               <NavLink to="/projects" className="sidebar__link">Projects</NavLink>

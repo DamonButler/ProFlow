@@ -6,7 +6,7 @@ import MyAccount from "./components/MyAccount/MyAccount"
 import SignUp from './components/Logging/SignUp'
 import Login from './components/Logging/Login'
 import { UserProvider } from "./User";
-import Home from "./components/Home";
+import Team from "./components/Team";
 
 function App() {
     const [signUp, setSignUp] = useState(false)
@@ -64,7 +64,7 @@ function App() {
                 {<Sidebar handleLogout={handleLogout} />}
                 <div>
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/team" element={<Team />} />
                         <Route path="/projects" element={<Projects key={projects.id} id = {projects.id} addProjectsToState={addProjectsToState} handleProjectDelete={handleProjectDelete} handleTaskDelete={handleTaskDelete}/>} />
                         <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
                         <Route path='/signup' element={<SignUp addUserToState={addUserToState} />} />

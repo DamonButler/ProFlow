@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Home() {
+function Team() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -51,9 +51,8 @@ function Home() {
   return (
     <Container className="home-container">
       <Header as="h1" className="home-title">
-        Welcome to ProFlow!
+       Team Members
       </Header>
-      <h2 className='home-title' >Team Members:</h2>
       <Slider {...settings}>
         {users.map(user => (
           <div key={user.id} className='user-card'>
@@ -66,4 +65,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Team;

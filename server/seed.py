@@ -38,14 +38,19 @@ db.session.commit()
 
 print("Creating Projects...")
 
-p1 = Project( name = 'Flatiron', description = "Final project for the 15 week course!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", user_id = u1.id)
-p2 = Project( name = 'Frozen', description = "Ever feel like you wish time could be frozen?", start_date = faker.date(), end_date = faker.date(), status = "Not started", user_id = u1.id)
+p1 = Project( name = 'Flatiron', description = "Final project for the 15 week course!", start_date = faker.date(), end_date = faker.date(), status = "In progress", user_id = u1.id)
+p2 = Project( name = 'Frozen', description = "Ever feel like you wish time could be frozen?", start_date = faker.date(), end_date = faker.date(), status = "Completed", user_id = u1.id)
 p3 = Project( name = 'Delta', description = "Just booked a flight!", start_date = faker.date(), end_date = faker.date(), status = "Completed", user_id = u2.id)
-p4 = Project( name = 'Capstone', description = "Showing off the skills!", start_date = faker.date(), end_date = faker.date(), status = "Work in progress", user_id = u3.id)
+p4 = Project( name = 'Capstone', description = "Showing off the skills!", start_date = faker.date(), end_date = faker.date(), status = "In progress", user_id = u3.id)
 p5 = Project( name = 'Backend Broken', description = "If you know, you know....", start_date = faker.date(), end_date = faker.date(), status = "Calamity", user_id = u4.id)
+p6 = Project( name = 'Banking App', description = "Redesign Chase App", start_date = faker.date(), end_date = faker.date(), status = "In progress", user_id = u1.id)
+p7 = Project( name = 'Case Manager App', description = "New case management app", start_date = faker.date(), end_date = faker.date(), status = "Canceled", user_id = u1.id)
+p8 = Project( name = 'Youtube Redesign', description = "Redesign youtube layout", start_date = faker.date(), end_date = faker.date(), status = "In progress", user_id = u1.id)
+p9 = Project( name = 'Deep Freeze Inc', description = "Getting cold in here", start_date = faker.date(), end_date = faker.date(), status = "Canceled", user_id = u1.id)
+p10 = Project( name = 'Crazy Horse Redesign', description = "New website design for Crazy Horse", start_date = faker.date(), end_date = faker.date(), status = "In progress", user_id = u1.id)
+p11 = Project( name = 'Sittin Bowl', description = "Full rebranding needed", start_date = faker.date(), end_date = faker.date(), status = "Canceled", user_id = u1.id)
 
-
-db.session.add_all([p1, p2, p3, p4, p5])
+db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11])
 
 
 db.session.commit()
