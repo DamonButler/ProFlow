@@ -17,7 +17,7 @@ function SignUp({addUserToState}) {
         email: email,
         image: image
     }
-    
+
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch("/signup", {
@@ -29,68 +29,78 @@ function SignUp({addUserToState}) {
                 if (r.ok){
                     r.json().then(addUserToState(user))
                     refreshUser()
-                    navigate('/')
+                    navigate('/projects')
                 } else {
                     console.log('failure')
-                }   
+                }
             })
         e.target.reset()
     }
 
-  return (
-    <div className="proflow-body">
-    <h1 className="proflow-title">ProFlow Project Management</h1>
-    <div className="signup-container">
-      <div className="signup-welcome">
-
-      </div>
-      <Modal trigger={<Button className="signup-button">Sign Up</Button>}>
-        <Modal.Header className="signup-header">Create a New Account</Modal.Header>
-        <Modal.Content>
-          <Form onSubmit={handleSubmit}>
-            <Form.Field>
-              <label>Username</label>
-              <input
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-                name="username"
-                placeholder="Username"
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Password</label>
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                name="password"
-                placeholder="Password"
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Email Address</label>
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                name="email"
-                placeholder="Email Address"
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Profile Photo URL</label>
-              <input
-                onChange={(e) => setImage(e.target.value)}
-                type="text"
-                name="image"
-                placeholder="Profile Photo URL"
-              />
-            </Form.Field>
-            <Button type="submit" className="signup-submit-button">Submit</Button>
-          </Form>
-        </Modal.Content>
-      </Modal>
-    </div>
-    </div>
-  );
+    return (
+        <div className="proflow-body">
+            <div className="signup-container">
+                <div className="signup-welcome">
+                </div>
+                <Modal
+                    className="signup-modal"
+                    trigger={<button className="signup-button">Sign Up</button>}
+                >
+                    
+                    <div className="signup-modal-grid">
+                        <div className="signup-image-container">
+                            <img className="signup-image" src="https://i.imgur.com/67b562j.png" alt="signup pic" />
+                        </div>
+                        <div className="signup-content">
+                        <Modal.Header className="signup-header">Create a New Account</Modal.Header>
+                        <br/><br/><br/>
+                            <Modal.Content>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Field>
+                                        <label className="signup-labels">Username</label>
+                                        <input
+                                            onChange={(e) => setUsername(e.target.value)}
+                                            type="text"
+                                            name="username"
+                                            placeholder="Username"
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <label className="signup-labels">Password</label>
+                                        <input
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            type="password"
+                                            name="password"
+                                            placeholder="Password"
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <label className="signup-labels">Email Address</label>
+                                        <input
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            type="email"
+                                            name="email"
+                                            placeholder="Email Address"
+                                        />
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <label className="signup-labels">Profile Photo URL</label>
+                                        <input
+                                            onChange={(e) => setImage(e.target.value)}
+                                            type="text"
+                                            name="image"
+                                            placeholder="Profile Photo URL"
+                                        />
+                                    </Form.Field>
+                                    <Button type="submit" className="submit-button">Sign Up</Button>
+                                </Form>
+                            </Modal.Content>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
+        </div>
+    );
 }
 
 export default SignUp;

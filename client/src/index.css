@@ -12,10 +12,24 @@ code {
     monospace;
 }
 .login-header {
-  text-align: center;
+  text-align: left;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
+.login-p {
+  text-align: left;
+  font-size: 1.0rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.login-labels {
+  text-align: left;
+  font-weight: bold;
+  width: 100%
+}
+
 
 .ui.modal {
   display: flex;
@@ -23,18 +37,27 @@ code {
   justify-content: center;
 }
 .proflow-body {
-  background-color: #F8F8F8;
+  background-color: #ffffff;
 }
 
 .proflow-title {
+  width: 100%;
+  height: 75px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
   text-align: center;
+  color: #1677FF;
 }
+
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 40vh;
 }
 
 .login-form {
@@ -45,8 +68,23 @@ code {
 }
 
 .login-button {
-  font-size: 1.5rem;
-  padding: 1rem 2rem;
+  box-sizing: border-box;
+
+  /* Auto layout */
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 10px;
+  width: 73px;
+  height: 48px;
+  /* White */
+  background: #FFFFFF;
+  /* Gray 1 */
+  border: 1px solid #ADADAD;
+  border-radius: 4px;
 }
 
 .submit-button {
@@ -57,7 +95,7 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 30vh;
 }
 
 .signup-welcome {
@@ -66,7 +104,26 @@ code {
 }
 
 .signup-button {
-  margin-right: 1rem;
+  display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 16px;
+gap: 10px;
+
+width: 83px;
+height: 48px;
+
+/* Primary Blue */
+
+background: #1677FF;
+border-radius: 4px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
 }
 
 .signup-header {
@@ -215,3 +272,140 @@ code {
   margin: 0 auto;
 }
 
+.proflow-project-description{
+width: 100%;
+height: 88px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+line-height: 44px;
+letter-spacing: 0.8px;
+color: #403B3B;
+text-align: center;
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.proflow-info {
+  /* Auto layout */
+padding: 0px;
+width: 100%;
+height: 64px;
+flex: none;
+order: 1;
+flex-grow: 0;
+text-align: center;
+}
+
+.proflow-body {
+  display: flex;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.proflow-image {
+  flex: 1;
+  background-size: contain;
+  background-position: center;
+  height: 140%;
+  width: 100%;
+  background-color:#1677FF 
+}
+
+
+.proflow-login {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.proflow-title {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  color: #1677FF;
+}
+
+.proflow-project-description {
+  font-size: 24px;
+  line-height: 29px;
+  color: #212121;
+}
+
+.proflow-info {
+  font-size: 20px;
+  line-height: 24px;
+  color: #212121;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  align-content: right;
+  background-color: #1677FF;
+  color: #fff;
+}
+
+.login-modal-content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.login-form-container {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.login-image {
+  width: 500px;
+  height: 600px;
+  background-color: #1677FF;
+}
+
+.signup-modal-grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.signup-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-image {
+  width: 500px;
+  height: 600px;
+  background-color: #1677FF;
+}
+
+.header.signup-header {
+font-size: x-large;
+}
+
+.signup-content{
+  width: 30%;
+  align-content: right;
+}
+
+.signup-modal .signup-labels {
+  font-weight: normal;
+}

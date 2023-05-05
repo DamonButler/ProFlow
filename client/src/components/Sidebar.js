@@ -21,10 +21,7 @@ function Sidebar() {
         {!user && (
           <>
             <li className="sidebar__item">
-              <NavLink to="/login" className="sidebar__link">Login</NavLink>
-            </li>
-            <li className="sidebar__item">
-              <NavLink to="/signup" className="sidebar__link">Signup</NavLink>
+              <NavLink to="/login" className="sidebar__link"></NavLink>
             </li>
           </>
         )}
