@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Modal , Grid} from 'semantic-ui-react';
+import { Button, Card, Modal , Grid, Dropdown} from 'semantic-ui-react';
 import ProjectForm from './ProjectForm';
 import EditProjectForm from './EditProjectForm';
-import ProjectOptionsMenu from './ProjectOptionsMenu'
 import { UserContext } from '../../User';
 import { useContext } from 'react';
 
 
 function Projects({handleProjectDelete}) {
-  const [projects, setProjects] = useState([]);
+  const [, setProjects] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [deletingProject, setDeletingProject] = useState(null);
@@ -120,33 +119,62 @@ function Projects({handleProjectDelete}) {
   };
   
   const projectComponents = (user?.projects || []).map((eachProject) => {
+    const options = [
+      { key: 'manage', text: 'Edit', onClick: () => handleEdit(eachProject) },
+      {
+        key: 'delete',
+        text: 'Delete',
+        onClick: () => handleDeleteModal(eachProject),
+        negative: true,
+      },
+    ];
+  
     return (
       <Card key={eachProject.id}>
         <Card.Content>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <div><Card.Header>{eachProject.name}</Card.Header>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <Card.Header>{eachProject.name}</Card.Header>
             </div>
-            <div> <Card.Meta style={getStatusStyle(eachProject.status)}>{eachProject.status}</Card.Meta></div>
+            <div>
+              <Card.Meta style={getStatusStyle(eachProject.status)}>
+                {eachProject.status}
+              </Card.Meta>
+            </div>
           </div>
-          <br/>
           <Card.Description>{eachProject?.description}</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Button basic color='blue' onClick={() => handleEdit(eachProject)}>Manage</Button>
-          <Button basic color='green' onClick={() => handleTasksModal(eachProject)}>Tasks</Button>
-          <Button basic color='red' onClick={() => handleDeleteModal(eachProject)}>Delete</Button>
+        <Button
+            basic
+            color="green"
+            onClick={() => handleTasksModal(eachProject)}
+          >
+            Tasks
+          </Button>
+        <Dropdown icon="edit" floating button>
+            <Dropdown.Menu>
+              {options.map((option) => (
+                <Dropdown.Item
+                  key={option.key}
+                  text={option.text}
+                  onClick={option.onClick}
+                  negative="true"
+                />
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
         </Card.Content>
       </Card>
     );
   });
-  
-  
-
-  return (
+    return (
     <>
     <div>
+      <br/>
       <h2>All Projects</h2>
       </div>
+      <br/>
         <div className="create-project-container">
           <ProjectForm handleProjectAddition={handleProjectAddition} />
         </div>
@@ -164,7 +192,7 @@ function Projects({handleProjectDelete}) {
           setEditingProject(null);
         }}
       >
-        <Modal.Header>Manage Project</Modal.Header>
+        <Modal.Header>Edit Project Information</Modal.Header>
         <Modal.Content>
           <EditProjectForm
             project={editingProject}

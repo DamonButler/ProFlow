@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #F5f5f5; */
 }
 
 code {
@@ -21,7 +22,7 @@ code {
   text-align: left;
   font-size: 1.0rem;
   margin-bottom: 1rem;
-  width: 100c%;
+  width: 100%;
 }
 
 .login-labels {
@@ -210,8 +211,9 @@ flex-grow: 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 48px;
   padding: 16px;
+  background-color: white;
 }
 
 .sidebar__list {
@@ -445,4 +447,9 @@ width: auto;
 
 .project-status {
   align-content: right;
+}
+
+.project-form-container {
+  text-align: end;
+  padding-right: 50px;
 }

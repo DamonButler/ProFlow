@@ -11,7 +11,7 @@ import Team from "./components/Team";
 function App() {
     const [signUp, setSignUp] = useState(false)
     const [users, setUsers] = useState([])
-    const [user, setUser] = useState(null);
+    const [, setUser] = useState(null);
     const [projects, setProjects] = useState([])
     const [tasks, setTasks] = useState([])
 
@@ -69,6 +69,7 @@ function App() {
                         <Route path='/login' element={<Login handleLogin={handleLogin}/>} />
                         <Route path='/signup' element={<SignUp addUserToState={addUserToState} />} />
                         <Route path='/myaccount' element={<MyAccount />} />
+
                     </Routes>
                 </div>
                 
